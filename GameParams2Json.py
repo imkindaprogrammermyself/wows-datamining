@@ -16,6 +16,8 @@ if not os.path.exists(entities_dir):
 class GPEncode(json.JSONEncoder):
     def default(self, o):
         _hasattr = hasattr(o, '__dict__')
+        # I could directly use hasattr() here but the inspector will assume __dict__ as str and the IDE
+        # will show warnings which are all false positives and it's annoying.
         if _hasattr:
             t = o.__dict__
             for key in t:
